@@ -1,16 +1,41 @@
+import { useEffect } from "react";
+
 import { Button, Container } from "@mantine/core";
 import { FormProvider, useForm } from "react-hook-form";
 import dayjs from "dayjs";
 
 import { DatePicker, TextInput } from "@app-shared/components";
 import { DateFormat } from "@app-shared/enums";
-import { useEffect } from "react";
+import { InputValiation } from "@app-shared/types";
+import { EMAIL_REGEX } from "@app-shared/constants";
 
 type MyFormProps = {
   email: string;
   password: string;
   dateFrom: Date | null;
   dateTo: Date | null;
+};
+
+const emailFieldRules: InputValiation = {
+  required: {
+    value: true,
+    message: "Required email input",
+  },
+  pattern: {
+    value: EMAIL_REGEX,
+    message: "Invalid email address",
+  },
+};
+
+const passwordFieldRules: InputValiation = {
+  required: {
+    value: true,
+    message: "Required password",
+  },
+  minLength: {
+    value: 8,
+    message: "Min is 8 chars",
+  },
 };
 
 export const MyForm = () => {
@@ -44,16 +69,7 @@ export const MyForm = () => {
           label="Email"
           placeholder="User Email"
           error={errors.email && `${errors.email.message}`}
-          rules={{
-            required: {
-              value: true,
-              message: "Required email input",
-            },
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address",
-            },
-          }}
+          rules={emailFieldRules}
         />
         <TextInput
           type="password"
@@ -61,16 +77,7 @@ export const MyForm = () => {
           label="Password"
           placeholder="Password"
           error={errors.password && `${errors.password.message}`}
-          rules={{
-            required: {
-              value: true,
-              message: "Required password",
-            },
-            minLength: {
-              value: 8,
-              message: "Min is 8 chars",
-            },
-          }}
+          rules={passwordFieldRules}
         />
         <DatePicker
           label="Date from"
