@@ -1,11 +1,11 @@
 import { baseHttp } from "@app-shared/services";
 
-const token = "FAKE-TOKEN";
+const accessToken = JSON.parse(localStorage.getItem("accessToken") as string);
 
 baseHttp.httpInstance.interceptors.request.use(
   (config) => {
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
