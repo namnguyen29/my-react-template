@@ -3,14 +3,16 @@ import { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import { MainLayout } from "@app-containers/layouts";
-import { DemoContextProvider } from "@app-shared/contexts";
+import { Login } from "@app-features/auth/pages";
 import { Dashboard, Defer, Home } from "@app-features/common/pages";
+import { DemoContextProvider } from "@app-shared/contexts";
+import { ProtectedRoute } from "@app-shared/components";
 
 export const rootRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<div>IS LOADING...</div>}>
+      <Suspense fallback={<div>Is Loading...</div>}>
         <MainLayout />
       </Suspense>
     ),
@@ -29,8 +31,16 @@ export const rootRouter = createBrowserRouter([
       },
       {
         path: "/defer",
-        element: <Defer />,
+        element: (
+          <ProtectedRoute>
+            <Defer />
+          </ProtectedRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);

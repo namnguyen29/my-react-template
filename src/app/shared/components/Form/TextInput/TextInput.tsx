@@ -1,5 +1,5 @@
 import { Input } from "@mantine/core";
-import { useController, useFormContext } from "react-hook-form";
+import { FieldValues, RegisterOptions, useController, useFormContext } from "react-hook-form";
 
 export type TextInputProps = {
   type: "text" | "email" | "password";
@@ -10,6 +10,10 @@ export type TextInputProps = {
   disabled?: boolean;
   error?: string;
   label?: string;
+  rules?: Omit<
+    RegisterOptions<FieldValues, string>,
+    "disabled" | "valueAsNumber" | "valueAsDate" | "setValueAs"
+  >;
 };
 
 export const TextInput = ({
@@ -21,18 +25,18 @@ export const TextInput = ({
   disabled,
   required,
   label,
+  rules,
 }: TextInputProps) => {
   const { control } = useFormContext();
-  const { field } = useController({ name, control });
+  const { field } = useController({ name, control, rules });
 
   return (
-    <Input.Wrapper label={label} required={required}>
+    <Input.Wrapper label={label} required={required} error={error}>
       <Input
         id={id}
         type={type}
         disabled={disabled}
         placeholder={placeholder}
-        error={error}
         value={field.value}
         ref={field.ref}
         name={field.name}
