@@ -20,3 +20,9 @@ export type MockResponseData = Pick<MockTodo, "title" | "userId"> & {
   body: string;
   id: number;
 };
+
+export type Todo = {
+  done: boolean;
+  name: string;
+  id: string;
+};

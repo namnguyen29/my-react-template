@@ -1,0 +1,16 @@
+.item-container {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  .content {
+    margin-right: 2rem;
+  }
+}
+
+.mr-25 {
+  margin-right: 0.25rem;
+}
+
+.text-through {
+  text-decoration: line-through;
+}

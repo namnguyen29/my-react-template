@@ -3,15 +3,16 @@ import { useController, useFormContext } from "react-hook-form";
 
 import { InputValiation } from "@app-shared/types";
 
-export type TextInputProps = {
+type TextInputProps = {
   type: "text" | "email" | "password";
   name: string;
+  placeholder: string;
   id?: string;
   required?: boolean;
-  placeholder?: string;
   disabled?: boolean;
   error?: string;
   label?: string;
+  value?: string;
   rules?: InputValiation;
 };
 
@@ -25,6 +26,7 @@ export const TextInput = ({
   required,
   label,
   rules,
+  value,
 }: TextInputProps) => {
   const { control } = useFormContext();
   const { field } = useController({ name, control, rules });
@@ -36,7 +38,7 @@ export const TextInput = ({
         type={type}
         disabled={disabled}
         placeholder={placeholder}
-        value={field.value}
+        value={value || field.value}
         ref={field.ref}
         name={field.name}
         onChange={field.onChange}
