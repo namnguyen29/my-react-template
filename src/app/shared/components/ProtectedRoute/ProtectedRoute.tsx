@@ -1,5 +1,6 @@
-import { useAuth } from "@app-shared/hooks";
 import { ReactNode, useEffect } from "react";
+
+import { useAuth } from "@app-shared/hooks";
 
 type ProtectedRouteProps = {
   children: ReactNode;

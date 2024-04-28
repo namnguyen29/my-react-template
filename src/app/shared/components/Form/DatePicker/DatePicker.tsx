@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 import { useFormContext, useController } from "react-hook-form";
 import { DatePickerInput } from "@mantine/dates";
 
+import { InputValiation } from "@app-shared/types";
+
 type DatePickerProps = {
   label: string;
   placeholder: string;
@@ -11,6 +13,7 @@ type DatePickerProps = {
   error?: string;
   disabled?: boolean;
   icon?: ReactNode;
+  rules?: InputValiation;
 };
 
 export const DatePicker = ({
@@ -19,11 +22,12 @@ export const DatePicker = ({
   format,
   name,
   error,
-  disabled = false,
+  disabled,
   icon,
+  rules,
 }: DatePickerProps) => {
   const { control } = useFormContext();
-  const { field } = useController({ name, control });
+  const { field } = useController({ name, control, rules });
   return (
     <DatePickerInput
       valueFormat={format}

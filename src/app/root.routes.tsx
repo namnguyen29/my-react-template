@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "@app-containers/layouts";
 import { Login } from "@app-features/auth/pages";
 import { Dashboard, Defer, Home } from "@app-features/common/pages";
+import { CompletedTodo, Todo } from "@app-features/todo/pages";
 import { DemoContextProvider } from "@app-shared/contexts";
 import { ProtectedRoute } from "@app-shared/components";
 
@@ -28,6 +29,14 @@ export const rootRouter = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/todo",
+        element: <Todo />,
+      },
+      {
+        path: "/completed-todo",
+        element: <CompletedTodo />,
       },
       {
         path: "/defer",

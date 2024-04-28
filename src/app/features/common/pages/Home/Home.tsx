@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-import { createSearchParams, useNavigate } from "react-router-dom";
 import { Button, Container } from "@mantine/core";
 
 import { MyForm } from "@app-features/common/components";
@@ -8,7 +7,6 @@ import { useDemoContext } from "@app-shared/hooks";
 import styles from "./Home.module.scss";
 
 export const Home = () => {
-  const navigate = useNavigate();
   const { theme, toggleAppTheme } = useDemoContext();
   const [count, setCount] = useState(0);
   const refCount = useRef(count);
@@ -16,16 +14,6 @@ export const Home = () => {
   const increase = () => setCount((c) => c + 1);
 
   const decrease = () => setCount((c) => c - 1);
-
-  const redirectToDashboard = (): void => {
-    navigate({
-      pathname: "dashboard",
-      hash: "this-is-my-hash",
-      search: createSearchParams({
-        foo: "bar",
-      }).toString(),
-    });
-  };
 
   useEffect(() => {
     refCount.current = count;
@@ -58,21 +46,6 @@ export const Home = () => {
 
       <Container component="section" className={styles["border-bottom"]}>
         <MyForm />
-      </Container>
-
-      <Container component="section" className={styles["border-bottom"]}>
-        <h3>Redirect</h3>
-        <Button
-          variant="filled"
-          color="red"
-          className={styles["mr-1"]}
-          onClick={redirectToDashboard}
-        >
-          Redirect To Dashboard
-        </Button>
-        <Button type="button" color="green" onClick={() => navigate("/defer")}>
-          Redirect To Test Defer
-        </Button>
       </Container>
     </Container>
   );
