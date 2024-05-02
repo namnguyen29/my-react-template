@@ -1,55 +1,43 @@
-import { useEffect, useRef, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useDebounce } from "@uidotdev/usehooks";
+import { useQuery } from "@tanstack/react-query";
 
-import { useForm, useWatch } from "react-hook-form";
-import { AxiosError } from "axios";
-import { debounce } from "lodash-es";
-
-import { MockPost } from "@app-shared/types";
-import { mockApi } from "@app-shared/apis";
+import { TextInput } from "@app-shared/components";
+import { getDataById } from "@app-shared/apis";
 
 export const Defer = () => {
-  const [post, setPost] = useState<MockPost | null>(null);
-  const [errorMsg, setErrorMsg] = useState("");
   const methods = useForm<{
     demo: string;
-  }>();
-  const demoFieldValue = useWatch<{
-    demo: string;
   }>({
-    name: "demo",
-    control: methods.control,
-    defaultValue: "",
+    defaultValues: {
+      demo: "",
+    },
   });
-
-  const fetchDataById = useRef(
-    debounce(async (id: number) => {
-      try {
-        const result = (await mockApi.getDataById(id)).data;
-        setPost(result);
-      } catch (err) {
-        const error = err as AxiosError;
-        setErrorMsg(error.message);
-      }
-    }, 300)
-  ).current;
-
-  useEffect(() => {
-    fetchDataById(Number(demoFieldValue) || 1);
-  }, [fetchDataById, demoFieldValue]);
+  const demoId = useDebounce(methods.watch("demo"), 350);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["postById", demoId],
+    queryFn: () => getDataById(demoId || "1"),
+  });
 
   return (
     <article>
-      {post ? (
+      <div className="search-box">
+        <FormProvider {...methods}>
+          <TextInput label="Demo" name="demo" type="text" placeholder="Find your ID" />
+        </FormProvider>
+      </div>
+      {isLoading && <p>IS LOADING ...</p>}
+      {data ? (
         <>
           <ol>
-            <li>ID: {post?.id}</li>
-            <li>Body: {post?.body}</li>
-            <li>Title: {post?.title}</li>
-            <li>UserId: {post?.userId}</li>
+            <li>ID: {data.id}</li>
+            <li>Body: {data.body}</li>
+            <li>Title: {data.title}</li>
+            <li>UserId: {data.userId}</li>
           </ol>
         </>
       ) : (
-        <h1>{errorMsg}</h1>
+        <h1>{error?.message}</h1>
       )}
     </article>
   );
