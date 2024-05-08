@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": {
+    "name": "nnam"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -37,6 +40,7 @@
     "postcss": "^8.4.38",
     "postcss-preset-mantine": "^1.13.0",
     "postcss-simple-vars": "^7.0.1",
+    "prettier": "^3.2.5",
     "sass": "^1.72.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"

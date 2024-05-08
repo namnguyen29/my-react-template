@@ -3,14 +3,14 @@ import clsx from "clsx";
 
 import styles from "./TaskItem.module.scss";
 import { Todo } from "@app-shared/types";
-import { Checkbox } from "@app-shared/components";
+// import { Checkbox } from "@app-shared/components";
 
 type TaskItemProps = {
   task: Todo;
   isEditing: boolean;
   deleteTask: (taskId: string) => void;
   editTask: (taskId: string, taskName: string) => void;
-  onChangeStatus?: (id: string, checked: boolean) => void;
+  onChangeStatus: (id: string, checked: boolean) => void;
 };
 
 export const TaskItem = ({
@@ -24,13 +24,22 @@ export const TaskItem = ({
 
   return (
     <div id={id} className={styles["item-container"]}>
-      <Checkbox
+      {/* <Checkbox
         name={`cb-${name}`}
         disabled={isEditing}
+        onChange={(event) => onChangeStatus(id, event.currentTarget.checked)}
+      /> */}
+
+      <input
+        type="checkbox"
+        name={`cb-${name}`}
+        disabled={isEditing}
+        checked={done}
         onChange={(event) => {
           onChangeStatus && onChangeStatus(id, event.currentTarget.checked);
         }}
       />
+
       <p className={clsx(styles["content"], done && styles["text-through"])}>{name}</p>
       <Button
         color="yellow"

@@ -1,17 +1,17 @@
-import { Suspense } from "react";
+import { Suspense } from 'react';
 
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom';
 
-import { MainLayout } from "@app-containers/layouts";
-import { Login } from "@app-features/auth/pages";
-import { Dashboard, Defer, Home } from "@app-features/common/pages";
-import { CompletedTodo, Todo } from "@app-features/todo/pages";
-import { DemoContextProvider } from "@app-shared/contexts";
-import { ProtectedRoute } from "@app-shared/components";
+import { MainLayout } from '@app-containers/layouts';
+import { Login } from '@app-features/auth/pages';
+import { Dashboard, Defer, Home } from '@app-features/common/pages';
+import { Ticket, Todo } from '@app-features/todo/pages';
+import { DemoContextProvider } from '@app-shared/contexts';
+import { ProtectedRoute } from '@app-shared/components';
 
 export const rootRouter = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <Suspense fallback={<div>Is Loading...</div>}>
         <MainLayout />
@@ -19,37 +19,37 @@ export const rootRouter = createBrowserRouter([
     ),
     children: [
       {
-        path: "/",
+        path: '/',
         element: (
           <DemoContextProvider>
             <Home />
           </DemoContextProvider>
-        ),
+        )
       },
       {
-        path: "/dashboard",
-        element: <Dashboard />,
+        path: '/dashboard',
+        element: <Dashboard />
       },
       {
-        path: "/todo",
-        element: <Todo />,
+        path: '/todo',
+        element: <Todo />
       },
       {
-        path: "/completed-todo",
-        element: <CompletedTodo />,
+        path: '/ticket',
+        element: <Ticket />
       },
       {
-        path: "/defer",
+        path: '/defer',
         element: (
           <ProtectedRoute>
             <Defer />
           </ProtectedRoute>
-        ),
-      },
-    ],
+        )
+      }
+    ]
   },
   {
-    path: "/login",
-    element: <Login />,
-  },
+    path: '/login',
+    element: <Login />
+  }
 ]);

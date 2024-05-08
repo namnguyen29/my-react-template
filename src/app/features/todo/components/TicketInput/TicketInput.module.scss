@@ -1,0 +1,12 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-control {
+  display: flex;
+  gap: 1rem;
+  & > div {
+    flex-basis: 30%;
+  }
+}

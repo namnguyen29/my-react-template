@@ -1,0 +1,16 @@
+.text-through {
+  text-decoration: line-through;
+}
+
+.ticket {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  &:not(.ticket:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.actions button {
+  margin: 0px 4px;
+}
