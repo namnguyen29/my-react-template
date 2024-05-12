@@ -1,58 +1,82 @@
-import { Drawer, List, ListItem, Button } from "@mantine/core";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useCallback, useMemo } from 'react';
 
-type SidebarProps = {
+import { Drawer, List, ListItem, Button, DefaultMantineColor } from '@mantine/core';
+import { createSearchParams, useNavigate } from 'react-router-dom';
+
+type SidebarOption = {
+  label: string;
+  redirect: () => void;
+  color: DefaultMantineColor;
+};
+
+type Props = {
   isOpen: boolean;
   toggleSidebar: () => void;
 };
 
-export const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
+export const Sidebar = ({ isOpen, toggleSidebar }: Props) => {
   const navigate = useNavigate();
 
-  const redirectToDashboard = (): void => {
+  const redirectToDashboard = useCallback(() => {
     toggleSidebar();
     navigate({
-      pathname: "dashboard",
-      hash: "this-is-my-hash",
+      pathname: 'dashboard',
+      hash: 'this-is-my-hash',
       search: createSearchParams({
-        foo: "bar",
-      }).toString(),
+        foo: 'bar'
+      }).toString()
     });
-  };
+  }, [navigate, toggleSidebar]);
 
-  const redirectTo = (url: string): void => {
-    toggleSidebar();
-    navigate(url);
-  };
+  const redirectTo = useCallback(
+    (url: string) => {
+      toggleSidebar();
+      navigate(url);
+    },
+    [navigate, toggleSidebar]
+  );
+
+  const sidebarOptions = useMemo<SidebarOption[]>(
+    () => [
+      {
+        label: 'Redirect To Defer',
+        redirect: () => redirectTo('/defer'),
+        color: 'green'
+      },
+      {
+        label: 'Redirect - Todo page',
+        redirect: () => redirectTo('/todo'),
+        color: 'yellow'
+      },
+      {
+        label: 'Redirect To Ticket',
+        redirect: () => redirectTo('/ticket'),
+        color: 'cyan'
+      },
+      {
+        label: 'Redirect To Dashboard',
+        redirect: redirectToDashboard,
+        color: 'red'
+      },
+      {
+        label: 'Redirect To Home',
+        redirect: () => redirectTo('/'),
+        color: 'violet'
+      }
+    ],
+    [redirectTo, redirectToDashboard]
+  );
 
   return (
     <Drawer opened={isOpen} onClose={toggleSidebar}>
       <List>
-        <ListItem>
-          <Button type="button" color="green" onClick={() => redirectTo("/defer")}>
-            Redirect To Test Defer
-          </Button>
-        </ListItem>
-        <ListItem>
-          <Button type="button" color="yellow" onClick={() => redirectTo("/todo")}>
-            Redirect - Todo page
-          </Button>
-        </ListItem>
-        <ListItem>
-          <Button type="button" color="cyan" onClick={() => redirectTo("/completed-todo")}>
-            Redirect - Completed Todo page
-          </Button>
-        </ListItem>
-        <ListItem>
-          <Button variant="filled" color="red" onClick={redirectToDashboard}>
-            Redirect To Dashboard
-          </Button>
-        </ListItem>
-        <ListItem>
-          <Button variant="filled" onClick={() => redirectTo("/")}>
-            Go Home
-          </Button>
-        </ListItem>
+        {sidebarOptions.map((option, index) => (
+          <ListItem key={`${index}-${option.label}`}>
+            <Button type="button" color={option.color} onClick={option.redirect}>
+              {option.label}
+            </Button>
+          </ListItem>
+        ))}
       </List>
     </Drawer>
   );

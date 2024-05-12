@@ -10,7 +10,7 @@ type TaskListProps = {
   isEditing: boolean;
   editTask: (taskId: string, taskName: string) => void;
   deleteTask: (taskId: string) => void;
-  onChangeStatus?: (id: string, checked: boolean) => void;
+  onChangeStatus: (id: string, checked: boolean) => void;
 };
 
 export const TaskList = ({
