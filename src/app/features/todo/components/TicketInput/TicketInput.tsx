@@ -1,9 +1,10 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 
 import { Button, TextInput } from '@mantine/core';
 
 import styles from './TicketInput.module.scss';
 import { Todo } from '@app-shared/types';
+import { TitleCard } from '..';
 
 type Props = {
   currentTodo: Todo | null;
@@ -31,6 +32,9 @@ export const TicketInput = ({ currentTodo, editTodo, addTodo, finishEditTodo }: 
     setName('');
   };
 
+  const memoizedCallback = useCallback(() => console.log('call me'), []);
+  //const cb = () => console.log('call me');
+
   return (
     <form className={styles['form-container']} onSubmit={handleSubmit}>
       <h1>My ticket list</h1>
@@ -45,6 +49,8 @@ export const TicketInput = ({ currentTodo, editTodo, addTodo, finishEditTodo }: 
           {currentTodo ? 'Update' : 'Add'}
         </Button>
       </div>
+
+      <TitleCard titleCard="Hey hey hey" callback={memoizedCallback} />
     </form>
   );
 };

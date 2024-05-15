@@ -1,2 +1,3 @@
-export * from "./mockTodoType";
-export * from "./InputValidationType";
+export * from './mockTodoType';
+export * from './inputValidationType';
+export * from './tableType';

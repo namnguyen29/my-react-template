@@ -1,0 +1,21 @@
+.table-container {
+  font-size: 16px;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
+  border: 1px solid #000000;
+  padding: 0.25rem 0.5rem;
+}
+
+thead {
+  color: green;
+}
+tbody {
+  color: blue;
+}
+tfoot {
+  color: red;
+}
