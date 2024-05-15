@@ -1,19 +1,23 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useMatch } from "react-router-dom";
+import { useMatch } from 'react-router-dom';
 
-import { Calculator } from "@app-features/common/components";
+import { Calculator } from '@app-features/common/components';
+import { columns, defaultData } from '@app-shared/constants';
+import { Table } from '@app-shared/components';
+import { Person } from '@app-shared/types';
 
 export const Dashboard = () => {
-  const match = useMatch("/dashboard");
+  const match = useMatch('/dashboard');
 
   useEffect(() => {
-    console.log("match route::", match);
+    console.log('match route::', match);
   }, [match]);
 
   return (
     <article className="dashboard-page-container">
       <Calculator />
+      <Table<Person> tableItems={defaultData} columns={columns} />
     </article>
   );
 };
