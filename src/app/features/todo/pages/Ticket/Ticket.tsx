@@ -1,19 +1,38 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useReducer } from 'react';
 
 import { TicketInput, TicketList } from '@app-features/todo/components';
 import { Todo } from '@app-shared/types';
 import { syncTicketToLocal } from '@app-shared/utils';
+import {
+  TodoReducer,
+  TodosReducer,
+  addAction,
+  completedAction,
+  currentEditAction,
+  currentFinishAction,
+  currentReducer,
+  currentStartAction,
+  deleteAction,
+  finishAction,
+  reducer,
+  resetAction
+} from '@app-features/todo/states';
 
 export const Ticket = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
+  const [todos, dispatch] = useReducer<TodosReducer, Todo[]>(reducer, [], (arg) => arg);
+  const [currentTodo, currentDispatch] = useReducer<TodoReducer, Todo | null>(
+    currentReducer,
+    null,
+    (arg) => arg
+  );
+
   const completedTodos = useMemo(() => todos.filter((todo) => todo.done), [todos]);
   const unCompletedTodos = useMemo(() => todos.filter((todo) => !todo.done), [todos]);
 
   useEffect(() => {
     const todoString = localStorage.getItem('todos');
     const todoObjects: Todo[] = JSON.parse(todoString || '[]');
-    setTodos(todoObjects);
+    dispatch(resetAction(todoObjects));
   }, []);
 
   const addTodo = (name: string): void => {
@@ -22,28 +41,28 @@ export const Ticket = () => {
       done: false,
       id: new Date().toISOString()
     };
-    setTodos((prev) => prev.concat(todo));
+    dispatch(addAction(todo));
     syncTicketToLocal<Todo>((prev) => prev.concat(todo));
   };
 
   const handleCompletedTodo = (id: string, done: boolean): void => {
-    setTodos((prev) => prev.map((todo) => (todo.id === id ? { ...todo, done } : todo)));
+    dispatch(completedAction({ id, done }));
   };
 
   const startEditTodo = (id: string): void => {
     const findedTodo = todos.find((todo) => todo.id === id);
     if (findedTodo) {
-      setCurrentTodo(findedTodo);
+      currentDispatch(currentStartAction(findedTodo));
     }
   };
 
   const editTodo = (name: string): void => {
-    setCurrentTodo((prev) => prev && { ...prev, name });
+    currentDispatch(currentEditAction(name));
   };
 
   const finishEditTodo = (): void => {
-    setTodos((prev) => prev.map((todo) => (todo.id === currentTodo?.id ? currentTodo : todo)));
-    setCurrentTodo(null);
+    dispatch(finishAction(currentTodo));
+    currentDispatch(currentFinishAction(null));
 
     syncTicketToLocal<Todo>((todos) =>
       todos.map((todo) => (todo.id === currentTodo?.id ? currentTodo : todo))
@@ -52,9 +71,9 @@ export const Ticket = () => {
 
   const deleteTodo = (id: string): void => {
     if (currentTodo) {
-      setCurrentTodo(null);
+      currentDispatch(currentFinishAction(null));
     }
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    dispatch(deleteAction(id));
     syncTicketToLocal<Todo>((todos) => todos.filter((todo) => todo.id !== id));
   };
 

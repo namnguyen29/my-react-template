@@ -1,21 +1,35 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
-import { useMatch } from 'react-router-dom';
+// import { useMatch } from 'react-router-dom';
 
-import { Calculator } from '@app-features/common/components';
+import { Calculator, WatchTimer } from '@app-features/common/components';
 import { columns, defaultData } from '@app-shared/constants';
 import { Table } from '@app-shared/components';
 import { Person } from '@app-shared/types';
+import { useEffect, useRef, useState } from 'react';
 
 export const Dashboard = () => {
-  const match = useMatch('/dashboard');
+  const [isShow, setIsShow] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  // const match = useMatch('/dashboard');
+
+  // useEffect(() => {
+  //   console.log('match route::', match);
+  // }, [match]);
+  // const changeBorder = (borderClass: string): void => {
+  //   containerRef.current?.classList.add(borderClass);
+  // };
 
   useEffect(() => {
-    console.log('match route::', match);
-  }, [match]);
+    console.log('ref on page::', containerRef);
+  }, []);
 
   return (
     <article className="dashboard-page-container">
+      <button type="button" onClick={() => setIsShow((prev) => !prev)}>
+        Unmount
+      </button>
+      {isShow && <WatchTimer title="I'm a timer" ref={containerRef} />}
       <Calculator />
       <Table<Person> tableItems={defaultData} columns={columns} />
     </article>

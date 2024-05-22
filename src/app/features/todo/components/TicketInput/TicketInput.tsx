@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useReducer } from 'react';
 
 import { Button, TextInput } from '@mantine/core';
 
@@ -14,22 +14,34 @@ type Props = {
 };
 
 export const TicketInput = ({ currentTodo, editTodo, addTodo, finishEditTodo }: Props) => {
-  const [name, setName] = useState('');
+  const [name, dispatch] = useReducer<
+    (state: string, action: { type: 'change'; payload: string }) => string,
+    string
+  >(
+    (state, action) => {
+      if (action.type === 'change') {
+        return action.payload;
+      }
+      return state;
+    },
+    '',
+    (arg) => arg
+  );
 
   const onChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
-    currentTodo ? editTodo(value) : setName(value);
+    currentTodo ? editTodo(value) : dispatch({ type: 'change', payload: value });
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (currentTodo) {
       finishEditTodo();
-      setName(name && '');
+      dispatch({ type: 'change', payload: name && '' });
       return;
     }
     addTodo(name);
-    setName('');
+    dispatch({ type: 'change', payload: '' });
   };
 
   const memoizedCallback = useCallback(() => console.log('call me'), []);
