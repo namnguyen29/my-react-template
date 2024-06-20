@@ -1,10 +1,10 @@
-import { RouterProvider } from "react-router-dom";
-import { MantineProvider } from "@mantine/core";
-import "@mantine/core/styles.css";
+import { RouterProvider } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
 
-import { rootRouter } from "./root.routes";
-import { appQueryClient, appTheme } from "@app-core/configs";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { rootRouter } from './root.routes';
+import { appQueryClient, appTheme } from '@app-core/configs';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 export const App = () => {
   return (

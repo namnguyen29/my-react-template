@@ -7,7 +7,7 @@ import { Login } from '@app-features/auth/pages';
 import { Dashboard, Defer, Home } from '@app-features/common/pages';
 import { Ticket, Todo } from '@app-features/todo/pages';
 import { DemoContextProvider } from '@app-shared/contexts';
-import { ProtectedRoute } from '@app-shared/components';
+import { Modal, ProtectedRoute } from '@app-shared/components';
 
 export const rootRouter = createBrowserRouter([
   {
@@ -15,6 +15,7 @@ export const rootRouter = createBrowserRouter([
     element: (
       <Suspense fallback={<div>Is Loading...</div>}>
         <MainLayout />
+        <Modal />
       </Suspense>
     ),
     children: [

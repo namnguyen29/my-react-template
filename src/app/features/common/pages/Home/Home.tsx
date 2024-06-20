@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-import { Button, Container } from "@mantine/core";
+import { Button, Container } from '@mantine/core';
 
-import { MyForm } from "@app-features/common/components";
-import { useDemoContext } from "@app-shared/hooks";
-import styles from "./Home.module.scss";
+import { MyForm } from '@app-features/common/components';
+import { useDemoContext } from '@app-shared/hooks';
+import styles from './Home.module.scss';
 
 export const Home = () => {
   const { theme, toggleAppTheme } = useDemoContext();
@@ -19,32 +19,32 @@ export const Home = () => {
     refCount.current = count;
   }, [count]);
 
-  console.log("cache count::", {
+  console.log('cache count::', {
     count,
-    cacheCount: refCount.current,
+    cacheCount: refCount.current
   });
 
   return (
     <Container fluid component="article" className="home-container">
-      <Container component="section" className={styles["border-bottom"]}>
+      <Container component="section" className={styles['border-bottom']}>
         <h1>state: {count}</h1>
         <h1>ref count: {refCount.current}</h1>
-        <Button onClick={increase} className={styles["mr-1"]}>
+        <Button onClick={increase} className={styles['mr-1']}>
           +
         </Button>
         <Button onClick={decrease}>-</Button>
       </Container>
 
-      <Container component="section" className={styles["border-bottom"]}>
+      <Container component="section" className={styles['border-bottom']}>
         <p>Change theme using Context: {theme}</p>
         <Button
-          onClick={() => (theme === "light" ? toggleAppTheme("dark") : toggleAppTheme("light"))}
+          onClick={() => (theme === 'light' ? toggleAppTheme('dark') : toggleAppTheme('light'))}
         >
           Toggle Theme
         </Button>
       </Container>
 
-      <Container component="section" className={styles["border-bottom"]}>
+      <Container component="section" className={styles['border-bottom']}>
         <MyForm />
       </Container>
     </Container>
