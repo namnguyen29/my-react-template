@@ -1,13 +1,13 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { Button, Container } from "@mantine/core";
-import { FormProvider, useForm } from "react-hook-form";
-import dayjs from "dayjs";
+import { Button, Container } from '@mantine/core';
+import { Controller, useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
 
-import { DatePicker, TextInput } from "@app-shared/components";
-import { DateFormat } from "@app-shared/enums";
-import { InputValiation } from "@app-shared/types";
-import { EMAIL_REGEX } from "@app-shared/constants";
+import { DatePicker, TextInput } from '@app-shared/components';
+import { DateFormat } from '@app-shared/enums';
+import { InputValiation } from '@app-shared/types';
+import { EMAIL_REGEX } from '@app-shared/constants';
 
 type MyFormProps = {
   email: string;
@@ -19,80 +19,112 @@ type MyFormProps = {
 const emailFieldRules: InputValiation = {
   required: {
     value: true,
-    message: "Required email input",
+    message: 'Required email input'
   },
   pattern: {
     value: EMAIL_REGEX,
-    message: "Invalid email address",
-  },
+    message: 'Invalid email address'
+  }
 };
 
 const passwordFieldRules: InputValiation = {
   required: {
     value: true,
-    message: "Required password",
+    message: 'Required password'
   },
   minLength: {
     value: 8,
-    message: "Min is 8 chars",
-  },
+    message: 'Min is 8 chars'
+  }
 };
 
 export const MyForm = () => {
-  const formMethod = useForm<MyFormProps>({
-    defaultValues: {
-      email: "",
-      password: "",
-      dateFrom: null,
-      dateTo: null,
-    },
-  });
   const {
     handleSubmit,
-    formState: { errors },
-  } = formMethod;
+    control,
+    formState: { errors }
+  } = useForm<MyFormProps>({
+    defaultValues: {
+      email: '',
+      password: '',
+      dateFrom: null,
+      dateTo: null
+    }
+  });
   const handleFormSubmit = handleSubmit((data) => {
-    console.log("dayjs format::", dayjs(data.dateFrom).format(DateFormat.default));
-    console.log("form-data::", data);
+    console.log('dayjs format::', dayjs(data.dateFrom).format(DateFormat.default));
+    console.log('form-data::', data);
   });
 
   useEffect(() => {
-    console.log("form-error: errors::", errors);
+    console.log('form-error: errors::', errors);
   }, [errors]);
 
   return (
-    <FormProvider {...formMethod}>
-      <Container component="form" onSubmit={handleFormSubmit}>
-        <TextInput
-          type="text"
-          name="email"
-          label="Email"
-          placeholder="User Email"
-          error={errors.email && `${errors.email.message}`}
-          rules={emailFieldRules}
-        />
-        <TextInput
-          type="password"
-          name="password"
-          label="Password"
-          placeholder="Password"
-          error={errors.password && `${errors.password.message}`}
-          rules={passwordFieldRules}
-        />
-        <DatePicker
-          label="Date from"
-          placeholder="Date from"
-          format={DateFormat.default}
-          name="dateFrom"
-        />
-        <DatePicker
-          label="Date to"
-          placeholder="Date to"
-          format={DateFormat.default}
-          name="dateTo"
-        />
-        <Button type="submit">Submit Me</Button>
-      </Container>
-    </FormProvider>
+    <Container component="form" onSubmit={handleFormSubmit}>
+      <Controller
+        name="email"
+        control={control}
+        rules={emailFieldRules}
+        render={({ field: { onBlur, onChange, value } }) => (
+          <TextInput
+            type="text"
+            label="Email"
+            placeholder="User Email"
+            autocomplete="email"
+            value={value}
+            error={errors.email && `${errors.email.message}`}
+            onBlur={onBlur}
+            onChange={onChange}
+          />
+        )}
+      />
+      <Controller
+        name="password"
+        control={control}
+        rules={passwordFieldRules}
+        render={({ field: { onBlur, onChange, value } }) => (
+          <TextInput
+            type="password"
+            label="Password"
+            placeholder="Password"
+            autocomplete="current-password"
+            value={value}
+            error={errors.password && `${errors.password.message}`}
+            onBlur={onBlur}
+            onChange={onChange}
+          />
+        )}
+      />
+      <Controller
+        name="dateFrom"
+        control={control}
+        render={({ field: { onBlur, onChange, value } }) => (
+          <DatePicker
+            label="Date from"
+            placeholder="Date from"
+            format={DateFormat.default}
+            onBlur={onBlur}
+            onChange={onChange}
+            value={value}
+          />
+        )}
+      />
+      <Controller
+        name="dateTo"
+        control={control}
+        render={({ field: { onBlur, onChange, value } }) => (
+          <DatePicker
+            label="Date to"
+            placeholder="Date to"
+            format={DateFormat.default}
+            onBlur={onBlur}
+            onChange={onChange}
+            value={value}
+          />
+        )}
+      />
+      <Button type="submit">Submit Me</Button>
+    </Container>
   );
 };

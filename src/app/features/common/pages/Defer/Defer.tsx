@@ -1,30 +1,42 @@
-import { FormProvider, useForm } from "react-hook-form";
-import { useDebounce } from "@uidotdev/usehooks";
-import { useQuery } from "@tanstack/react-query";
+import { useForm, Controller } from 'react-hook-form';
+import { useDebounce } from '@uidotdev/usehooks';
+import { useQuery } from '@tanstack/react-query';
 
-import { TextInput } from "@app-shared/components";
-import { getDataById } from "@app-shared/apis";
+import { TextInput } from '@app-shared/components';
+import { getDataById } from '@app-shared/apis';
 
 export const Defer = () => {
-  const methods = useForm<{
+  const { watch, control } = useForm<{
     demo: string;
   }>({
     defaultValues: {
-      demo: "",
-    },
+      demo: ''
+    }
   });
-  const demoId = useDebounce(methods.watch("demo"), 350);
+  const demoId = useDebounce(watch('demo'), 350);
   const { data, isLoading, error } = useQuery({
-    queryKey: ["postById", demoId],
-    queryFn: () => getDataById(demoId || "1"),
+    queryKey: ['postById', demoId],
+    queryFn: () => getDataById(demoId || '1')
   });
 
   return (
     <article>
       <div className="search-box">
-        <FormProvider {...methods}>
-          <TextInput label="Demo" name="demo" type="text" placeholder="Find your ID" />
-        </FormProvider>
+        <Controller
+          control={control}
+          name="demo"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              label="Demo"
+              name="demo"
+              type="text"
+              placeholder="Find your ID"
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+            />
+          )}
+        />
       </div>
       {isLoading && <p>IS LOADING ...</p>}
       {data ? (

@@ -5,7 +5,7 @@ export const Modal = () => {
     <p
       style={{
         color: 'red',
-        top: '0',
+        bottom: '0',
         position: 'fixed'
       }}
     >

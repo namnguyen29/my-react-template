@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { Button } from "@mantine/core";
-import { FormProvider, useForm } from "react-hook-form";
+import { Button } from '@mantine/core';
+import { useForm, Controller } from 'react-hook-form';
 
-import styles from "./TaskInput.module.scss";
-import { TextInput } from "@app-shared/components";
-import { InputValiation } from "@app-shared/types";
+import styles from './TaskInput.module.scss';
+import { TextInput } from '@app-shared/components';
+import { InputValiation } from '@app-shared/types';
 
 type TaskInputProps = {
-  mode: "add" | "update";
+  mode: 'add' | 'update';
   editingValue: { id: string; name: string };
   onSubmit: (data: { name: string }) => void;
 };
@@ -16,44 +16,53 @@ type TaskInputProps = {
 const inputRules: InputValiation = {
   required: {
     value: true,
-    message: "Required task input value",
-  },
+    message: 'Required task input value'
+  }
 };
 
 export const TaskInput = ({ editingValue, mode, onSubmit }: TaskInputProps) => {
-  const formMethods = useForm<{ name: string }>({
-    defaultValues: {
-      name: "",
-    },
-  });
   const {
     handleSubmit,
     setValue,
-    formState: { errors },
-  } = formMethods;
+    control,
+    formState: { errors }
+  } = useForm<{ name: string }>({
+    defaultValues: {
+      name: ''
+    }
+  });
 
   useEffect(() => {
-    setValue("name", editingValue.name);
+    setValue('name', editingValue.name);
   }, [editingValue, setValue]);
 
   return (
-    <FormProvider {...formMethods}>
+    <>
       <form
-        className={styles["form-container"]}
+        className={styles['form-container']}
         onSubmit={handleSubmit((data) => {
           onSubmit(data);
-          setValue("name", "");
+          setValue('name', '');
         })}
       >
-        <TextInput
-          type="text"
-          placeholder="Caption goes here"
-          error={errors.name?.message}
+        <Controller
           name="name"
+          control={control}
           rules={inputRules}
+          render={({ field: { onBlur, onChange, value } }) => (
+            <TextInput
+              type="text"
+              placeholder="Caption goes here"
+              error={errors.name?.message}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+            />
+          )}
         />
-        <Button type="submit">{mode === "add" ? "Add" : "Update"}</Button>
+
+        <Button type="submit">{mode === 'add' ? 'Add' : 'Update'}</Button>
       </form>
-    </FormProvider>
+    </>
   );
 };

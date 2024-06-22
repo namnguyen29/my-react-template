@@ -1,19 +1,19 @@
-import { ReactNode } from "react";
+import { FocusEventHandler, ForwardedRef, ReactNode } from 'react';
 
-import { useFormContext, useController } from "react-hook-form";
-import { DatePickerInput } from "@mantine/dates";
-
-import { InputValiation } from "@app-shared/types";
+import { DatePickerInput, DateValue } from '@mantine/dates';
 
 type DatePickerProps = {
   label: string;
   placeholder: string;
   format: string;
-  name: string;
+  name?: string;
   error?: string;
   disabled?: boolean;
+  value?: DateValue;
   icon?: ReactNode;
-  rules?: InputValiation;
+  datePickerRef?: ForwardedRef<HTMLButtonElement>;
+  onBlur?: FocusEventHandler<HTMLButtonElement>;
+  onChange?: (value: DateValue) => void;
 };
 
 export const DatePicker = ({
@@ -22,24 +22,28 @@ export const DatePicker = ({
   format,
   name,
   error,
+  value,
   disabled,
   icon,
-  rules,
+  datePickerRef,
+  onBlur,
+  onChange
 }: DatePickerProps) => {
-  const { control } = useFormContext();
-  const { field } = useController({ name, control, rules });
   return (
-    <DatePickerInput
-      valueFormat={format}
-      label={label}
-      placeholder={placeholder}
-      disabled={disabled}
-      value={field.value}
-      ref={field.ref}
-      rightSection={icon}
-      error={error}
-      onBlur={field.onBlur}
-      onChange={field.onChange}
-    />
+    <>
+      <DatePickerInput
+        valueFormat={format}
+        name={name}
+        label={label}
+        placeholder={placeholder}
+        disabled={disabled}
+        value={value}
+        ref={datePickerRef}
+        rightSection={icon}
+        error={error}
+        onBlur={onBlur}
+        onChange={onChange}
+      />
+    </>
   );
 };
