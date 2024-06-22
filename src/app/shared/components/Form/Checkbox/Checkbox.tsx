@@ -1,22 +1,30 @@
-import { Checkbox as LibCheckbox } from "@mantine/core";
-import { useFormContext, useController } from "react-hook-form";
+import { ChangeEventHandler, FocusEventHandler } from 'react';
 
-import { InputValiation } from "@app-shared/types";
+import { Checkbox as LibCheckbox } from '@mantine/core';
 
 type CheckboxProps = {
-  name: string;
+  checked: boolean;
+  name?: string;
   id?: string;
   required?: boolean;
   disabled?: boolean;
   error?: string;
   label?: string;
-  rules?: InputValiation;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 };
 
-export const Checkbox = ({ name, id, required, disabled, error, label, rules }: CheckboxProps) => {
-  const { control } = useFormContext();
-  const { field } = useController({ name, control, rules });
-
+export const Checkbox = ({
+  name,
+  id,
+  checked,
+  required,
+  disabled,
+  error,
+  label,
+  onChange,
+  onBlur
+}: CheckboxProps) => {
   return (
     <LibCheckbox
       id={id}
@@ -24,10 +32,10 @@ export const Checkbox = ({ name, id, required, disabled, error, label, rules }: 
       required={required}
       disabled={disabled}
       error={error}
+      checked={checked}
       label={label}
-      onChange={field.onChange}
-      onBlur={field.onBlur}
-      checked={field.value}
+      onChange={onChange}
+      onBlur={onBlur}
     />
   );
 };

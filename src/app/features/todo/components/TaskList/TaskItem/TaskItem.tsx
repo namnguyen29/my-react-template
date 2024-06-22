@@ -1,9 +1,9 @@
-import { Button } from "@mantine/core";
-import clsx from "clsx";
+import { Button } from '@mantine/core';
+import clsx from 'clsx';
 
-import styles from "./TaskItem.module.scss";
-import { Todo } from "@app-shared/types";
-// import { Checkbox } from "@app-shared/components";
+import styles from './TaskItem.module.scss';
+import { Todo } from '@app-shared/types';
+import { Checkbox } from '@app-shared/components';
 
 type TaskItemProps = {
   task: Todo;
@@ -18,32 +18,23 @@ export const TaskItem = ({
   isEditing,
   editTask,
   deleteTask,
-  onChangeStatus,
+  onChangeStatus
 }: TaskItemProps) => {
   const { id, done, name } = task;
 
   return (
-    <div id={id} className={styles["item-container"]}>
-      {/* <Checkbox
+    <div id={id} className={styles['item-container']}>
+      <Checkbox
         name={`cb-${name}`}
+        checked={done}
         disabled={isEditing}
         onChange={(event) => onChangeStatus(id, event.currentTarget.checked)}
-      /> */}
-
-      <input
-        type="checkbox"
-        name={`cb-${name}`}
-        disabled={isEditing}
-        checked={done}
-        onChange={(event) => {
-          onChangeStatus && onChangeStatus(id, event.currentTarget.checked);
-        }}
       />
 
-      <p className={clsx(styles["content"], done && styles["text-through"])}>{name}</p>
+      <p className={clsx(styles['content'], done && styles['text-through'])}>{name}</p>
       <Button
         color="yellow"
-        className={styles["mr-25"]}
+        className={styles['mr-25']}
         disabled={done || isEditing}
         onClick={() => editTask(id, name)}
       >

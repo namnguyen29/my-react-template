@@ -1,11 +1,10 @@
-import { Input } from "@mantine/core";
-import { useController, useFormContext } from "react-hook-form";
+import { ChangeEvent, RefObject, FocusEvent, HTMLInputAutoCompleteAttribute } from 'react';
 
-import { InputValiation } from "@app-shared/types";
+import { Input } from '@mantine/core';
 
 type TextInputProps = {
-  type: "text" | "email" | "password";
-  name: string;
+  type: 'text' | 'email' | 'password';
+  name?: string;
   placeholder: string;
   id?: string;
   required?: boolean;
@@ -13,7 +12,10 @@ type TextInputProps = {
   error?: string;
   label?: string;
   value?: string;
-  rules?: InputValiation;
+  autocomplete?: HTMLInputAutoCompleteAttribute;
+  inputRef?: RefObject<HTMLInputElement>;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement, Element>) => void;
 };
 
 export const TextInput = ({
@@ -25,12 +27,12 @@ export const TextInput = ({
   disabled,
   required,
   label,
-  rules,
+  inputRef,
+  autocomplete,
   value,
+  onChange,
+  onBlur
 }: TextInputProps) => {
-  const { control } = useFormContext();
-  const { field } = useController({ name, control, rules });
-
   return (
     <Input.Wrapper label={label} required={required} error={error}>
       <Input
@@ -38,11 +40,12 @@ export const TextInput = ({
         type={type}
         disabled={disabled}
         placeholder={placeholder}
-        value={value || field.value}
-        ref={field.ref}
-        name={field.name}
-        onChange={field.onChange}
-        onBlur={field.onBlur}
+        value={value}
+        ref={inputRef}
+        name={name}
+        autoComplete={autocomplete}
+        onChange={onChange}
+        onBlur={onBlur}
       />
     </Input.Wrapper>
   );
