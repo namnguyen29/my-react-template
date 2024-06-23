@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 
 import { DatePicker, TextInput } from '@app-shared/components';
 import { DateFormat } from '@app-shared/enums';
-import { InputValiation } from '@app-shared/types';
 import { EMAIL_REGEX } from '@app-shared/constants';
 
 type MyFormProps = {
@@ -16,7 +15,7 @@ type MyFormProps = {
   dateTo: Date | null;
 };
 
-const emailFieldRules: InputValiation = {
+const emailFieldRules = {
   required: {
     value: true,
     message: 'Required email input'
@@ -27,7 +26,7 @@ const emailFieldRules: InputValiation = {
   }
 };
 
-const passwordFieldRules: InputValiation = {
+const passwordFieldRules = {
   required: {
     value: true,
     message: 'Required password'

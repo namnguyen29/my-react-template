@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Button, Container } from '@mantine/core';
 
-import { MyForm } from '@app-features/common/components';
+import { ChildTracker, MouseTracker, MyForm } from '@app-features/common/components';
 import { useDemoContext } from '@app-shared/hooks';
 import styles from './Home.module.scss';
 
@@ -45,6 +45,7 @@ export const Home = () => {
       </Container>
 
       <Container component="section" className={styles['border-bottom']}>
+        <MouseTracker children={({ x, y }) => <ChildTracker x={x + 1} y={y + 1} />} />
         <MyForm />
       </Container>
     </Container>
