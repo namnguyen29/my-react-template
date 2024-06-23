@@ -3,9 +3,8 @@
 // import { useMatch } from 'react-router-dom';
 
 import { Calculator, WatchTimer } from '@app-features/common/components';
-import { columns, defaultData } from '@app-shared/constants';
-import { Table } from '@app-shared/components';
-import { Person } from '@app-shared/types';
+// import { columns, defaultData } from '@app-shared/constants';
+// import { Person } from '@app-shared/types';
 import { useEffect, useRef, useState } from 'react';
 
 export const Dashboard = () => {
@@ -31,7 +30,6 @@ export const Dashboard = () => {
       </button>
       {isShow && <WatchTimer title="I'm a timer" ref={containerRef} />}
       <Calculator />
-      <Table<Person> tableItems={defaultData} columns={columns} />
     </article>
   );
 };
