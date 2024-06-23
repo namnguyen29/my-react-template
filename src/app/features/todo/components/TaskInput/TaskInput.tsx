@@ -5,7 +5,6 @@ import { useForm, Controller } from 'react-hook-form';
 
 import styles from './TaskInput.module.scss';
 import { TextInput } from '@app-shared/components';
-import { InputValiation } from '@app-shared/types';
 
 type TaskInputProps = {
   mode: 'add' | 'update';
@@ -13,7 +12,7 @@ type TaskInputProps = {
   onSubmit: (data: { name: string }) => void;
 };
 
-const inputRules: InputValiation = {
+const inputRules = {
   required: {
     value: true,
     message: 'Required task input value'

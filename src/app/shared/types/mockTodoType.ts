@@ -12,11 +12,11 @@ export type MockPost = {
   userId: string;
 };
 
-export type MockRequestData = Pick<MockTodo, "title" | "userId"> & {
+export type MockRequestData = Pick<MockTodo, 'title' | 'userId'> & {
   body: string;
 };
 
-export type MockResponseData = Pick<MockTodo, "title" | "userId"> & {
+export type MockResponseData = Pick<MockTodo, 'title' | 'userId'> & {
   body: string;
   id: number;
 };
