@@ -1,9 +1,10 @@
 import { ChangeEvent } from 'react';
 
-import { Button, Checkbox } from '@mantine/core';
+import { Button } from '@mantine/core';
 
 import styles from './TicketList.module.scss';
 import { Todo } from '@app-shared/types';
+import { Checkbox } from '@app-shared/components';
 
 type Props = {
   doneTaskList?: boolean;
@@ -31,12 +32,7 @@ export const TicketList = ({
       <h2>{doneTaskList ? 'Completed' : 'Uncompleted'}</h2>
       {todos.map((todo, index) => (
         <div className={styles['ticket']} key={`${index}-${todo.id}`}>
-          <Checkbox
-            id={todo.id}
-            checked={todo.done}
-            color="red"
-            onChange={onCheckboxChange(todo.id)}
-          />
+          <Checkbox id={todo.id} checked={todo.done} onChange={onCheckboxChange(todo.id)} />
           <span className={todo.done ? styles['text-throught'] : ''}>{todo.name}</span>
           <div className={styles['actions']}>
             <Button color="cyan" onClick={() => startEditTodo(todo.id)}>

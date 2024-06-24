@@ -18,6 +18,12 @@ import {
   resetAction
 } from '@app-features/todo/states';
 
+type Employee = {
+  name: string;
+  age: number;
+  city: string;
+};
+
 export const Ticket = () => {
   const [todos, dispatch] = useReducer<TodosReducer, Todo[]>(reducer, [], (arg) => arg);
   const [currentTodo, currentDispatch] = useReducer<TodoReducer, Todo | null>(
@@ -33,6 +39,42 @@ export const Ticket = () => {
     const todoString = localStorage.getItem('todos');
     const todoObjects: Todo[] = JSON.parse(todoString || '[]');
     dispatch(resetAction(todoObjects));
+    /////////////////////////////
+    console.log('learn Map object here!!!');
+    const employees: Employee[] = [
+      { name: 'John', age: 25, city: 'New York' },
+      { name: 'Emily', age: 30, city: 'Los Angeles' },
+      { name: 'David', age: 35, city: 'Chicago' },
+      { name: 'Sarah', age: 28, city: 'San Francisco' },
+      { name: 'John', age: 32, city: 'Seattle' }
+    ];
+    const employeeSet = new Set<Employee>();
+    const employeeMap = new Map<string, Employee>();
+    employees.forEach((emp) => {
+      employeeSet.add(emp);
+      employeeMap.set(emp.name, emp);
+    });
+
+    console.log('view entries set::', employeeSet.entries());
+    console.log('view values set::', employeeSet.values());
+
+    console.log('view entries set clone::', [...employeeSet.entries()]);
+    console.log('view values set clone::', [...employeeSet.values()]);
+    console.log('no duplicate::', [...employeeSet]); // 5 phan tu
+
+    // employeeSet.forEach(({ name, age, city }) => {
+    //   console.log('loop a set::', { name, age, city });
+    // });
+
+    // const employeeMap = new Map<string, Employee>();
+
+    // employees.forEach((emp) => {
+    //   employeeMap.set(emp.name, emp);
+    // });
+
+    // for (const [key, value] of employeeMap) {
+    //   console.log({ key, value });
+    // }
   }, []);
 
   const addTodo = (name: string): void => {
