@@ -48,6 +48,10 @@ export const rootRouter = createBrowserRouter([
             <Defer />
           </ProtectedRoute>
         )
+      },
+      {
+        path: '*',
+        element: <div>oi zoi oi 404 roi</div>
       }
     ]
   },

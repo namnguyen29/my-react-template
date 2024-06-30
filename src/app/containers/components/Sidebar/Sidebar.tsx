@@ -23,7 +23,8 @@ export const Sidebar = ({ isOpen, toggleSidebar }: Props) => {
       pathname: 'dashboard',
       hash: 'this-is-my-hash',
       search: createSearchParams({
-        foo: 'bar'
+        foo: 'bar',
+        demo: 'happy'
       }).toString()
     });
   }, [navigate, toggleSidebar]);
