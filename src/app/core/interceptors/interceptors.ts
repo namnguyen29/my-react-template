@@ -1,9 +1,10 @@
-import { AxiosError, HttpStatusCode } from "axios";
-import { baseHttp } from "@app-shared/services";
+import { AxiosError, HttpStatusCode } from 'axios';
 
-const accessToken = JSON.parse(localStorage.getItem("accessToken") as string);
+import { http } from '@app-shared/services';
 
-baseHttp.httpInstance.interceptors.request.use(
+const accessToken = JSON.parse(localStorage.getItem('accessToken') as string);
+
+http.interceptors.request.use(
   (config) => {
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -13,11 +14,11 @@ baseHttp.httpInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-baseHttp.httpInstance.interceptors.response.use(
+http.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (error.status === HttpStatusCode.Unauthorized) {
-      console.log("Logout or do something");
+      console.log('Logout or do something');
     }
     return Promise.reject(error);
   }

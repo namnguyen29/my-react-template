@@ -1,1 +1,1 @@
-export * from "./dateFormatEnum";
+export * from './dateFormatEnum';
