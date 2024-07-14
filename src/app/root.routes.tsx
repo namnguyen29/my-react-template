@@ -51,7 +51,7 @@ export const rootRouter = createBrowserRouter([
       },
       {
         path: '*',
-        element: <div>oi zoi oi 404 roi</div>
+        element: <div>This is my 404 page, please redirect to login</div>
       }
     ]
   },
