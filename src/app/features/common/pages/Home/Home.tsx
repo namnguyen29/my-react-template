@@ -27,7 +27,7 @@ export const Home = () => {
     <Container fluid component="article" className="border-2 border-red-600 sm:border-red-200">
       <Container component="section" className="border-2 border-violet-300">
         Hello world!
-        <h1 className="text-3xl font-bold underline text-red-600">state: {count}</h1>
+        <h1 className="text-3xl font-bold text-red-600 underline">state: {count}</h1>
         <h1>ref count: {refCount.current}</h1>
         <Button onClick={increase} className="mr-1">
           +

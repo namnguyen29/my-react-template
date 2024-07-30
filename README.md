@@ -12,7 +12,6 @@ Currently, two official plugins are available:
 ```
 @mantine-ui
 @tanstack-query
-@tanstack-table
 react-hook-form
 react-router-dom
 axios

@@ -5,6 +5,9 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 5100
+  },
   resolve: {
     alias: {
       '@app-features': path.resolve(__dirname, './src/app/features'),
