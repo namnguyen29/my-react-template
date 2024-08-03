@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 
 export const Header = () => {
-  const navigations = ['defer', 'todo', 'ticket', 'dashboard', ''];
+  const navigations = ['defer', 'todo', 'ticket', 'dashboard', '', 'grid-home'];
   return (
     <div>
       {navigations.map((nav, idx) => (

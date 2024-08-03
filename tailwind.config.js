@@ -7,16 +7,15 @@ module.exports = {
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      gridTemplateRows: {
+        'min-60': 'repeat(4, minmax(60px, 1fr))'
+      },
       screens: {
-        sm: {
-          max: '576px'
-        },
-        md: { max: '768px' },
-        lg: { max: '992p' },
-        xl: { max: '1280px' },
-        '2xl': {
-          max: '1536px'
-        }
+        '2xl': '1536px',
+        xl: '1280px',
+        lg: '992px',
+        md: '768px',
+        sm: '576px'
       }
     }
   },
