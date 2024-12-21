@@ -1,25 +1,25 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import styles from "./Todo.module.scss";
-import { TaskInput, TaskList } from "@app-features/todo/components";
-import { Todo as TodoType } from "@app-shared/types";
-import { generateRandomId } from "@app-shared/utils";
+import styles from './Todo.module.scss';
+import { TaskInput, TaskList } from '@app-features/todo/components';
+import { Todo as TodoType } from '@app-shared/types';
+import { generateRandomId } from '@app-shared/utils';
 
 export const Todo = () => {
   const [taskList, setTaskList] = useState<TodoType[]>([]);
-  const [mode, setMode] = useState<"update" | "add">("add");
+  const [mode, setMode] = useState<'update' | 'add'>('add');
   const [editValue, setEditValue] = useState<{ id: string; name: string }>({
-    id: "",
-    name: "",
+    id: '',
+    name: ''
   });
 
   const handleSubmitForm = (data: { name: string }): void => {
-    if (mode === "add") {
+    if (mode === 'add') {
       setTaskList((prev) => {
         const task = {
           name: data.name,
           id: generateRandomId(),
-          done: false,
+          done: false
         };
         return [...prev, task];
       });
@@ -32,7 +32,7 @@ export const Todo = () => {
       return task;
     });
     setTaskList(modifyTasks);
-    setMode("add");
+    setMode('add');
   };
 
   const handleDeleteTask = (taskId: string): void => {
@@ -50,19 +50,19 @@ export const Todo = () => {
   };
 
   const handleEditTask = (id: string, name: string): void => {
-    setMode("update");
+    setMode('update');
     setEditValue({ id, name });
   };
 
   return (
-    <article className={styles["todo-container"]}>
+    <article className={styles['todo-container']}>
       <h2>My Todo list</h2>
       <TaskInput mode={mode} editingValue={editValue} onSubmit={handleSubmitForm} />
 
       {taskList.length > 0 && taskList.some((task) => !task.done) && (
         <TaskList
           title="Incomplete"
-          isEditing={mode === "update" ? true : false}
+          isEditing={mode === 'update'}
           taskList={taskList.filter((task) => !task.done)}
           deleteTask={handleDeleteTask}
           editTask={handleEditTask}
@@ -72,7 +72,7 @@ export const Todo = () => {
       {taskList.length > 0 && taskList.some((task) => task.done) && (
         <TaskList
           title="Complete"
-          isEditing={mode === "update" ? true : false}
+          isEditing={mode === 'update'}
           taskList={taskList.filter((task) => task.done)}
           deleteTask={handleDeleteTask}
           editTask={handleEditTask}

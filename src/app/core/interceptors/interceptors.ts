@@ -11,7 +11,7 @@ http.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(new Error(error))
 );
 
 http.interceptors.response.use(

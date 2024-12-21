@@ -1,28 +1,28 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useState } from 'react';
 
-export type DemoTheme = "light" | "dark";
+export type DemoTheme = 'light' | 'dark';
 
 export type DemoContextProps = {
   theme: DemoTheme;
-  setTheme: (theme: "light" | "dark") => void;
+  setTheme: (theme: 'light' | 'dark') => void;
 };
 
 export const DemoContext = createContext<DemoContextProps>({
-  theme: "light",
-  setTheme: () => {},
+  theme: 'light',
+  setTheme: () => {}
 });
 
 export const DemoContextProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   return (
-    <DemoContext.Provider
+    <DemoContext
       value={{
         theme,
-        setTheme,
+        setTheme
       }}
     >
       {children}
-    </DemoContext.Provider>
+    </DemoContext>
   );
 };

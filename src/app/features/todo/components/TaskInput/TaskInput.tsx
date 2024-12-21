@@ -36,32 +36,30 @@ export const TaskInput = ({ editingValue, mode, onSubmit }: TaskInputProps) => {
   }, [editingValue, setValue]);
 
   return (
-    <>
-      <form
-        className={styles['form-container']}
-        onSubmit={handleSubmit((data) => {
-          onSubmit(data);
-          setValue('name', '');
-        })}
-      >
-        <Controller
-          name="name"
-          control={control}
-          rules={inputRules}
-          render={({ field: { onBlur, onChange, value } }) => (
-            <TextInput
-              type="text"
-              placeholder="Caption goes here"
-              error={errors.name?.message}
-              value={value}
-              onChange={onChange}
-              onBlur={onBlur}
-            />
-          )}
-        />
+    <form
+      className={styles['form-container']}
+      onSubmit={handleSubmit((data) => {
+        onSubmit(data);
+        setValue('name', '');
+      })}
+    >
+      <Controller
+        name="name"
+        control={control}
+        rules={inputRules}
+        render={({ field: { onBlur, onChange, value } }) => (
+          <TextInput
+            type="text"
+            placeholder="Caption goes here"
+            error={errors.name?.message}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+          />
+        )}
+      />
 
-        <Button type="submit">{mode === 'add' ? 'Add' : 'Update'}</Button>
-      </form>
-    </>
+      <Button type="submit">{mode === 'add' ? 'Add' : 'Update'}</Button>
+    </form>
   );
 };

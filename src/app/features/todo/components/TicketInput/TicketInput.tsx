@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useCallback, useReducer } from 'react';
+import { ChangeEvent, FormEvent, useReducer } from 'react';
 
 import { Button, TextInput } from '@mantine/core';
 
@@ -15,8 +15,9 @@ type Props = {
 
 export const TicketInput = ({ currentTodo, editTodo, addTodo, finishEditTodo }: Props) => {
   const [name, dispatch] = useReducer<
-    (state: string, action: { type: 'change'; payload: string }) => string,
-    string
+    string,
+    string,
+    [action: { type: 'change'; payload: string }]
   >(
     (state, action) => {
       if (action.type === 'change') {
@@ -44,9 +45,6 @@ export const TicketInput = ({ currentTodo, editTodo, addTodo, finishEditTodo }: 
     dispatch({ type: 'change', payload: '' });
   };
 
-  const memoizedCallback = useCallback(() => console.log('call me'), []);
-  //const cb = () => console.log('call me');
-
   return (
     <form className={styles['form-container']} onSubmit={handleSubmit}>
       <h1>My ticket list</h1>
@@ -54,7 +52,7 @@ export const TicketInput = ({ currentTodo, editTodo, addTodo, finishEditTodo }: 
         <TextInput
           name="ticket"
           placeholder="Enter your ticket name"
-          value={currentTodo?.name || name}
+          value={currentTodo?.name ?? name}
           onChange={onChangeInput}
         />
         <Button type="submit" disabled={name === '' && !currentTodo}>
@@ -62,7 +60,7 @@ export const TicketInput = ({ currentTodo, editTodo, addTodo, finishEditTodo }: 
         </Button>
       </div>
 
-      <TitleCard titleCard="Hey hey hey" callback={memoizedCallback} />
+      <TitleCard titleCard="Hey hey hey" />
     </form>
   );
 };
