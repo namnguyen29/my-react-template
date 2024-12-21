@@ -8,13 +8,13 @@ import {
 } from 'react';
 
 import {
-  State,
   //reducer,
   initState,
   insAction,
   desAction,
-  StateReducer,
-  reducerLoger
+  reducerLoger,
+  Action,
+  State
 } from './states';
 
 /**
@@ -24,7 +24,7 @@ import {
 
 export const Login = () => {
   const [width, setWidth] = useState(0);
-  const [state, dispatch] = useReducer<StateReducer, State>(
+  const [state, dispatch] = useReducer<State, State, [action: Action]>(
     reducerLoger(),
     initState,
     (arg) => arg
@@ -32,7 +32,7 @@ export const Login = () => {
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const measure = () => setWidth(divRef.current?.offsetWidth || 0);
+    const measure = () => setWidth(divRef.current?.offsetWidth ?? 0);
     addEventListener('resize', measure);
 
     return () => {
@@ -58,7 +58,7 @@ export const Login = () => {
 //   age: number;
 // };
 
-// type Reducer = (state: State, action: 'ins' | 'des') => State;
+// type Reducer = (state: State, action: 'ins' | 'des')  ===> State;
 
 // const [state, dispatch] = useReducer<Reducer, State>(
 //     (state, action) => {

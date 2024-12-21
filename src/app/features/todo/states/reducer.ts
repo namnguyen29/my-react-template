@@ -35,7 +35,7 @@ export const currentReducer: TodoReducer = (state, action) => {
   }
 };
 
-// // logger reducer
+// NOTE: logger reducer
 // export const reducerLoger = (): StateReducer => (state, action) => {
 //   console.log('reducer - prev state::', state);
 //   const nextState = reducer(state, action);

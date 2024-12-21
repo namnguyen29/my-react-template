@@ -30,20 +30,18 @@ export const DatePicker = ({
   onChange
 }: DatePickerProps) => {
   return (
-    <>
-      <DatePickerInput
-        valueFormat={format}
-        name={name}
-        label={label}
-        placeholder={placeholder}
-        disabled={disabled}
-        value={value}
-        ref={datePickerRef}
-        rightSection={icon}
-        error={error}
-        onBlur={onBlur}
-        onChange={onChange}
-      />
-    </>
+    <DatePickerInput
+      valueFormat={format}
+      name={name}
+      label={label}
+      placeholder={placeholder}
+      disabled={disabled}
+      value={value}
+      ref={datePickerRef}
+      rightSection={icon}
+      error={error}
+      onBlur={onBlur}
+      onChange={onChange}
+    />
   );
 };
