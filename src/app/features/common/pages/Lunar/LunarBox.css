@@ -1,0 +1,16 @@
+/* .group-box div,
+.group-box p,
+.group-box h2 {
+  margin: 1rem 0rem;
+  background-color: pink;
+} */
+
+/* .group-box :is(div, p, h2) {
+  background-color: green;
+  margin: 1rem 0rem;
+} */
+
+.group-box :where(div, p, h2) {
+  background-color: pink;
+  margin: 1rem 0rem;
+}
