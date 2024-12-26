@@ -4,7 +4,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { MainLayout } from '@app-containers/layouts';
 import { Login } from '@app-features/auth/pages';
-import { Dashboard, Defer, Home, Lunar, MyGridHome } from '@app-features/common/pages';
+import { Dashboard, Defer, Home, Lunar, MyGridHome, ScrollSnap } from '@app-features/common/pages';
 import { Ticket, Todo } from '@app-features/todo/pages';
 import { DemoContextProvider } from '@app-shared/contexts';
 import { ErrorBoundary, Modal, ProtectedRoute } from '@app-shared/components';
@@ -54,6 +54,10 @@ export const rootRouter = createBrowserRouter([
         element: <div>This is my 404 page, please redirect to login</div>
       }
     ]
+  },
+  {
+    path: '/scroll-snap',
+    element: <ScrollSnap />
   },
   {
     path: '/grid-home',
