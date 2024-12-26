@@ -19,3 +19,7 @@ export const MyGridHome = lazy(async () => ({
 export const Lunar = lazy(async () => ({
   default: (await import('./Lunar/Lunar')).Lunar
 }));
+
+export const ScrollSnap = lazy(async () => ({
+  default: (await import('./ScrollSnap/ScrollSnap')).ScrollSnap
+}));
