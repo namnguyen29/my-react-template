@@ -20,6 +20,8 @@ export const ScrollSnap = () => {
         scrollObserver.observe(block);
       });
     }
+
+    return () => scrollObserver.disconnect();
   });
 
   // useEffect(() => {
