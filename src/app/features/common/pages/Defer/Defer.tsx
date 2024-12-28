@@ -40,14 +40,12 @@ export const Defer = () => {
       </div>
       {isLoading && <p>IS LOADING ...</p>}
       {data ? (
-        <>
-          <ol>
-            <li>ID: {data.id}</li>
-            <li>Body: {data.body}</li>
-            <li>Title: {data.title}</li>
-            <li>UserId: {data.userId}</li>
-          </ol>
-        </>
+        <ol>
+          <li>ID: {data.id}</li>
+          <li>Body: {data.body}</li>
+          <li>Title: {data.title}</li>
+          <li>UserId: {data.userId}</li>
+        </ol>
       ) : (
         <h1>{error?.message}</h1>
       )}

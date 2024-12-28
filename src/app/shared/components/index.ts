@@ -1,5 +1,6 @@
 export * from './ProtectedRoute/ProtectedRoute';
 export * from './Form';
-export * from './Modal/Modal';
+export * from './AppModal/AppModal';
 export * from './ErrorBoundary/ErrorBoundary';
 export * from './Table/Table';
+export * from './AppProgress';

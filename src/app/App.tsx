@@ -8,13 +8,11 @@ import '@mantine/dates/styles.css';
 import { rootRouter } from './root.routes';
 import { appQueryClient, appTheme } from '@app-core/configs';
 
-export const App = () => {
-  return (
-    <QueryClientProvider client={appQueryClient}>
-      <MantineProvider theme={appTheme}>
-        <RouterProvider router={rootRouter} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </MantineProvider>
-    </QueryClientProvider>
-  );
-};
+export const App = () => (
+  <QueryClientProvider client={appQueryClient}>
+    <MantineProvider theme={appTheme}>
+      <RouterProvider router={rootRouter} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </MantineProvider>
+  </QueryClientProvider>
+);
