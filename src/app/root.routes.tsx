@@ -7,14 +7,14 @@ import { Login } from '@app-features/auth/pages';
 import { Dashboard, Defer, Home, Lunar, MyGridHome, ScrollSnap } from '@app-features/common/pages';
 import { Ticket, Todo } from '@app-features/todo/pages';
 import { DemoContextProvider } from '@app-shared/contexts';
-import { AppModal, AppProgress, ErrorBoundary, ProtectedRoute } from '@app-shared/components';
+import { AppModal, TopProgress, ErrorBoundary, ProtectedRoute } from '@app-shared/components';
 
 export const rootRouter = createBrowserRouter([
   {
     path: '/',
     element: (
       <Suspense fallback={<div>Loading...</div>}>
-        <AppProgress />
+        <TopProgress />
         <AppModal />
         <Outlet />
       </Suspense>

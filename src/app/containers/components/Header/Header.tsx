@@ -1,20 +1,19 @@
 import { NavLink } from 'react-router-dom';
-import styles from './Header.module.scss';
 
 export const Header = () => {
   const navigations = ['defer', 'todo', 'ticket', 'dashboard', '', 'grid-home', 'lunar'];
   return (
-    <div>
+    <>
       {navigations.map((nav, idx) => (
         <NavLink
           style={{ marginRight: '16px' }}
           key={`${nav}-${idx}`}
           to={nav}
-          className={({ isActive }) => (isActive ? styles.active : '')}
+          className={({ isActive }) => (isActive ? 'rounded-md bg-violet-400 p-2 text-white' : '')}
         >
           {nav === '' ? 'home' : nav}
         </NavLink>
       ))}
-    </div>
+    </>
   );
 };

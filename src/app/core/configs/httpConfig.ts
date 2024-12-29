@@ -9,7 +9,7 @@ import axios, {
 const accessToken = JSON.parse(localStorage.getItem('accessToken') as string) ?? 'fake-toklen';
 const HTTP_TIMEOUT = 10000;
 
-export class HttpService {
+export class HttpConfig {
   private readonly baseHttp!: AxiosInstance;
 
   constructor(public apiUrl: string) {
