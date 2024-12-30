@@ -1,7 +1,16 @@
 import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
-  const navigations = ['defer', 'todo', 'ticket', 'dashboard', '', 'grid-home', 'lunar'];
+  const navigations = [
+    'defer',
+    'todo',
+    'ticket',
+    'dashboard',
+    '',
+    'grid-home',
+    'lunar',
+    'scroll-snap'
+  ];
   return (
     <>
       {navigations.map((nav, idx) => (
