@@ -1,4 +1,9 @@
-export const ChildTracker = ({ x, y }: { x: number; y: number }) => {
+type Props = {
+  x: number;
+  y: number;
+};
+
+export const ChildTracker = ({ x, y }: Props) => {
   return (
     <div>
       my child tracker
